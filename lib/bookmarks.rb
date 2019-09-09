@@ -1,12 +1,12 @@
 # comment
+require 'pg'
 class Bookmark
   attr_reader :name
 
   def self.all
-    [
-      'http://www.google.com',
-      'http://www.bing.com',
-      'http://www.yahoo.com'
-    ]
+    a = []
+    con = PG.connect :dbname => 'bookmark', :user => 'student'
+    rs = con.exec "SELECT * FROM bookmarks"
+    rs.map { |bookmark| bookmark['url'] }
   end
 end

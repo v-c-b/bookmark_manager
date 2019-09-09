@@ -10,7 +10,7 @@ feature 'Bookmark viewing' do
     visit '/bookmarks'
     expect(page).to have_content 'http://www.google.com'
     expect(page).to have_content 'http://www.bing.com'
-    expect(page).to have_content 'http://www.yahoo.com'
+    expect(page).to have_content 'http://www.destroyallsoftware.com'
 
   end
 end

@@ -4,8 +4,7 @@ require './lib/bookmarks.rb'
 # Class comment
 class BookmarkManager < Sinatra::Base
   enable :sessions
-
-
+  
   get '/' do
     'Hello World'
   end

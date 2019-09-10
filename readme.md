@@ -3,6 +3,11 @@ User story 1:
   So I can browse the web easily
   I want to see a list of my bookmarks
 
+User story 2:
+  As a User
+  so that I can come back to my favourite websites easily
+  I want add to my bookmarks
+
 Domain model for user story 1:
   Class                               Class
   List                                Bookmarks

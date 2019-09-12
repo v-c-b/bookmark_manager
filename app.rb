@@ -2,6 +2,7 @@
 require 'sinatra/base'
 require 'sinatra/flash'
 require './lib/bookmarks.rb'
+require './lib/comment.rb'
 require './lib/database_connection_setup.rb'
 
 

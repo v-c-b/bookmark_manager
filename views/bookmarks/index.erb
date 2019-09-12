@@ -23,6 +23,10 @@
       <input type='hidden' name='_method' value='POST'/>
       <input type="submit" value="Comment" />
     </form>
+    <ul>
+      <% Comment.find(bookmark.id).each do |comment|%>
+        <%=comment.text %>
+        <% end %>
   </li>
   <% end %>
 </ul>

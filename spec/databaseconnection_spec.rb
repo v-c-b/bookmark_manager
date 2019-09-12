@@ -1,6 +1,7 @@
 require 'pg'
 require 'databaseconnection'
 require 'database_helper'
+require 'database_connection_setup'
 
 describe DatabaseConnection do
   describe '#setup' do

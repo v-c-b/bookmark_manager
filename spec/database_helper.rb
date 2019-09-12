@@ -2,6 +2,7 @@
 def trunc_test_database
   con = PG.connect dbname: 'bookmark_manager_test'
   con.exec 'TRUNCATE bookmarks CASCADE'
+  con.exec 'TRUNCATE comments CASCADE'
 end
 
 def populate_test_database

@@ -1,4 +1,5 @@
 require 'pg'
+
 class DatabaseConnection
 
   def self.setup(dbname)
@@ -8,5 +9,4 @@ class DatabaseConnection
   def self.query(sql_query)
     @con.exec(sql_query)
   end
-
 end

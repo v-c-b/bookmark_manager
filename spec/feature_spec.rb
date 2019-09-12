@@ -41,7 +41,7 @@ feature 'Delete Bookmark' do
   end
 end
 
-feature 'Delete Bookmark' do
+feature 'Update Bookmark' do
   before :each do
     trunc_test_database
   end

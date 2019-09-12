@@ -7,7 +7,7 @@ describe 'adding a bookmark' do
   it 'updates the database' do
     trunc_test_database
     Bookmark.add(title: 'BBC', url: 'www.bbc.co.uk')
-    con = PG.connect dbname: 'bookmark_manager_test', user: 'student'
+    con = PG.connect dbname: 'bookmark_manager_test'
     result = con.exec "SELECT * FROM bookmarks where url = 'www.bbc.co.uk'"
     expect(result.values[0][1]).to eq('www.bbc.co.uk')
     expect(result.values[0][2]).to eq('BBC')
@@ -25,7 +25,7 @@ describe 'deletes a bookmark' do
     trunc_test_database
     p = Bookmark.add(title: 'BBC', url: 'www.bbc.co.uk')
     Bookmark.delete(id: p.id)
-    con = PG.connect dbname: 'bookmark_manager_test', user: 'student'
+    con = PG.connect dbname: 'bookmark_manager_test'
     result = con.exec "SELECT * FROM bookmarks where url = 'www.bbc.co.uk'"
     expect(result.values).to eq([])
   end

@@ -40,3 +40,19 @@ feature 'Delete Bookmark' do
     expect(page).not_to have_link('Makers', href: 'www.makersacademy.com')
   end
 end
+
+feature 'Delete Bookmark' do
+  before :each do
+    trunc_test_database
+  end
+  scenario 'A user can update a bookmark' do
+    populate_test_database
+    visit('/bookmarks')
+    expect(page).to have_link('Google', href: 'http://www.google.com')
+    first('.bookmark').click_button 'Update'
+    fill_in :url, with: 'https://www.google.com'
+    fill_in :name, with: 'Google_updated'
+    click_button('Submit')
+    expect(page).to have_link('Google_updated', href: 'https://www.google.com')
+  end
+end

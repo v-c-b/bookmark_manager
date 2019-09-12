@@ -1,3 +1,4 @@
+# main sinatra app with routes
 require 'sinatra/base'
 require './lib/bookmarks.rb'
 
@@ -6,7 +7,7 @@ class BookmarkManager < Sinatra::Base
   enable :sessions
 
   get '/' do
-    erb :'index'
+    erb :index
   end
 
   get '/bookmarks' do
@@ -15,17 +16,27 @@ class BookmarkManager < Sinatra::Base
   end
 
   post '/action' do
-    if params[:submit] == 'add_bookmark'
-      redirect '/bookmarks/add'
-    end
+    redirect '/bookmarks/add' if params[:submit] == 'add_bookmark'
+    redirect '/bookmarks' if params[:submit] == 'view_bookmark'
+    redirect '/bookmarks/delete' if params[:submit] == 'delete_bookmark'
+  end
+
+  get '/bookmarks/delete' do
+    @bookmarks = Bookmark.all
+    erb:'bookmarks/delete'
+  end
+
+  get '/bookmarks/remove' do
+    Bookmark.delete(params[:title])
+    redirect '/bookmarks'
   end
 
   get '/bookmarks/add' do
     erb :'bookmarks/add'
   end
 
-  get '/bookmarks/store'do
-    Bookmark.add(params[:url])
+  get '/bookmarks/store' do
+    Bookmark.add(params[:title], params[:url])
     redirect '/bookmarks'
   end
   run! if app_file == $PROGRAM_NAME

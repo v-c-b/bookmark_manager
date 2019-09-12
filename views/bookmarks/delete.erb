@@ -1,0 +1,14 @@
+<h1> Select bookmark to delete </h1>
+<ul>
+  <% @bookmarks.each do |bookmark| %>
+    <li>
+      <a href="<%= bookmark.url %>">
+        <%= bookmark.title %>
+      </a>
+    </li>
+  <% end %>
+</ul>
+<form action='/bookmarks/remove'>
+    <input type='text' name='title' placeholder="Title">
+    <input type='submit' name='submit'>
+</form>

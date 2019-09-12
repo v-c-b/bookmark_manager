@@ -1,4 +1,4 @@
-# comment
+# loads gems and set the test variable to ensure test database is used
 ENV['ENVIRONMENT'] = 'test'
 require 'capybara'
 require 'capybara/rspec'

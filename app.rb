@@ -1,6 +1,7 @@
 # main sinatra app with routes
 require 'sinatra/base'
 require './lib/bookmarks.rb'
+require './lib/databaseconnection.rb'
 
 # Class comment
 class BookmarkManager < Sinatra::Base
@@ -44,5 +45,9 @@ class BookmarkManager < Sinatra::Base
     Bookmark.add(title: params[:title], url: params[:url])
     redirect '/bookmarks'
   end
+
+
+DatabaseConnection.setup('bookmark_manager') if app_file == $PROGRAM_NAME
+  
   run! if app_file == $PROGRAM_NAME
 end

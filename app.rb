@@ -23,7 +23,7 @@ class BookmarkManager < Sinatra::Base
 
   get '/bookmarks/delete' do
     @bookmarks = Bookmark.all
-    erb:'bookmarks/delete'
+    erb :'bookmarks/delete'
   end
 
   get '/bookmarks/remove' do

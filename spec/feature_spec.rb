@@ -8,8 +8,7 @@ feature 'Bookmark viewing' do
     visit '/bookmarks'
     expect(page).to have_link('Google', href: 'http://www.google.com')
     expect(page).to have_link('Bing', href: 'http://www.bing.com')
-    expect(page).to have_link('Destroyallsoftware',
-        href: 'http://www.destroyallsoftware.com')
+    expect(page).to have_link('Destroyallsoftware', href: 'http://www.destroyallsoftware.com')
   end
 end
 

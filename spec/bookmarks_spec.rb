@@ -30,3 +30,22 @@ describe 'deletes a bookmark' do
     expect(result.values).to eq([])
   end
 end
+
+describe '#find' do
+  it 'returns the correct bookmark' do
+    drop_test_database
+    populate_test_database
+    expect(Bookmark.find(1).title).to eq('Google')
+    expect(Bookmark.find(1).url).to eq('http://www.google.com')
+  end
+end
+
+describe '#update' do
+  it 'changes the correct bookmark entry' do
+    drop_test_database
+    populate_test_database
+    Bookmark.update(1, 'Gooogle', 'www.gooogle.com')
+    expect(Bookmark.find(1).title).to eq('Gooogle')
+    expect(Bookmark.find(1).url).to eq('www.gooogle.com')
+  end
+end

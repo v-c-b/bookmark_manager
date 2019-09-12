@@ -22,6 +22,18 @@ class Bookmark
     @con.exec("DELETE FROM bookmarks WHERE id = #{id}")
   end
 
+  def self.update(id, title, url)
+    open_db_connection
+    @con.exec("UPDATE bookmarks SET url='#{url}', title='#{title}' WHERE id=#{id};")
+  end
+
+  def self.find(id)
+    open_db_connection
+    rs = @con.exec "SELECT * FROM bookmarks WHERE id=#{id}"
+    test = rs.map { |b| Bookmark.new(id: b['id'], title: b['title'], url: b['url']) }
+    test.first
+  end
+
   def self.open_db_connection
     if ENV['ENVIRONMENT'] == 'test'
       @con = PG.connect dbname: 'bookmark_manager_test'

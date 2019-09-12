@@ -51,7 +51,7 @@ feature 'Update Bookmark' do
     expect(page).to have_link('Google', href: 'http://www.google.com')
     first('.bookmark').click_button 'Update'
     fill_in :url, with: 'https://www.google.com'
-    fill_in :name, with: 'Google_updated'
+    fill_in :title, with: 'Google_updated'
     click_button('Submit')
     expect(page).to have_link('Google_updated', href: 'https://www.google.com')
   end

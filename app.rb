@@ -1,5 +1,6 @@
 # main sinatra app with routes
 require 'sinatra/base'
+require 'sinatra/flash'
 require './lib/bookmarks.rb'
 require './lib/database_connection_setup.rb'
 
@@ -7,6 +8,7 @@ require './lib/database_connection_setup.rb'
 # Class comment
 class BookmarkManager < Sinatra::Base
   enable :sessions, :method_override
+  register Sinatra::Flash
 
   get '/' do
     erb :index
@@ -34,8 +36,14 @@ class BookmarkManager < Sinatra::Base
   end
 
   post '/bookmarks/change/:id' do
-    Bookmark.update(params[:id], params[:title], params[:url])
-    redirect '/bookmarks'
+    if Bookmark.validate(params[:url]) == false
+      @bookmark = Bookmark.find(params[:id])
+      flash[:notice] = "Incorrect URL - try again"
+      redirect '/bookmarks'
+    else
+      Bookmark.update(params[:id], params[:title], params[:url])
+      redirect '/bookmarks'
+    end
   end
 
   get '/bookmarks/add' do
@@ -43,10 +51,14 @@ class BookmarkManager < Sinatra::Base
   end
 
   get '/bookmarks/store' do
-    Bookmark.add(title: params[:title], url: params[:url])
-    redirect '/bookmarks'
+      if Bookmark.validate(params[:url]) == false
+        flash[:notice] = "Incorrect URL - try again"
+        redirect '/bookmarks/add'
+      else
+        Bookmark.add(title: params[:title], url: params[:url])
+        redirect '/bookmarks'
+    end
   end
-
 
   run! if app_file == $PROGRAM_NAME
 end

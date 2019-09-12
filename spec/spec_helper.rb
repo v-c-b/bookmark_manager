@@ -5,6 +5,7 @@ require 'capybara/rspec'
 require 'simplecov'
 require 'simplecov-console'
 require 'database_helper.rb'
+require 'sinatra/flash'
 
 ENV['RACK_ENV'] = 'test'
 

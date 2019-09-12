@@ -1,4 +1,6 @@
 # feature tests for the bookmark manager
+require 'sinatra/flash'
+
 feature 'Bookmark viewing' do
   before :each do
     trunc_test_database
@@ -24,6 +26,16 @@ feature 'Add Bookmark' do
     fill_in :url, with: 'http://www.bbc.co.uk'
     click_button 'submit'
     expect(page).to have_link('BBC', href: 'http://www.bbc.co.uk')
+  end
+  scenario 'input wrong bookmark' do
+    populate_test_database
+    visit '/'
+    click_button 'add_bookmark'
+    fill_in :title, with: 'WrongURLtest'
+    fill_in :url, with: 'nothinghere'
+    click_button 'submit'
+    # expect(flash[:notice]).to be_present
+    expect(page).to have_content('Incorrect URL - try again')
   end
 end
 
@@ -54,5 +66,16 @@ feature 'Update Bookmark' do
     fill_in :title, with: 'Google_updated'
     click_button('Submit')
     expect(page).to have_link('Google_updated', href: 'https://www.google.com')
+  end
+  scenario 'incorrect url gets rejected' do
+    populate_test_database
+    visit('/bookmarks')
+    expect(page).to have_link('Google', href: 'http://www.google.com')
+    first('.bookmark').click_button 'Update'
+    fill_in :url, with: 'google'
+    fill_in :title, with: 'Google_updated_wrong'
+    click_button('Submit')
+    # expect(flash[:notice]).to be_present
+    expect(page).to have_content('Incorrect URL - try again')
   end
 end

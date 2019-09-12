@@ -2,6 +2,7 @@
 require './lib/bookmarks.rb'
 require 'database_helper.rb'
 require 'pg'
+require 'uri'
 
 describe 'adding a bookmark' do
   it 'updates the database' do
@@ -17,6 +18,10 @@ describe 'adding a bookmark' do
     bookmark = Bookmark.add(title: 'BBC', url: 'www.bbc.co.uk')
     expect(bookmark.title).to eq('BBC')
     expect(bookmark.url).to eq('www.bbc.co.uk')
+  end
+  it 'validates a URL' do
+    trunc_test_database
+    expect(Bookmark.validate('www.nothinghere')).to be false
   end
 end
 

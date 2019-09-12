@@ -1,4 +1,5 @@
 require 'pg'
+require 'uri'
 require_relative './databaseconnection'
 # manages bookmarks
 class Bookmark
@@ -28,6 +29,13 @@ class Bookmark
     rs = DatabaseConnection.query("SELECT * FROM bookmarks WHERE id=#{id}")
     test = rs.map { |b| Bookmark.new(id: b['id'], title: b['title'], url: b['url']) }
     test.first
+  end
+
+  def self.validate(url)
+    if (url =~ /\A#{URI::regexp(['http', 'https'])}\z/) == nil then
+      false
+    else true
+    end
   end
 
   def initialize(id:, title:, url:)

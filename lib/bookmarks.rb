@@ -10,17 +10,16 @@ class Bookmark
     rs.map { |b| Bookmark.new(id: b['id'], title: b['title'], url: b['url']) }
   end
 
-  def self.add(new_title, new_url)
+  def self.add(title:, url:)
     open_db_connection
     r = @con.exec "INSERT INTO bookmarks (title, url)
-    VALUES ('#{new_title}', '#{new_url}') RETURNING id, title, url;"
+    VALUES ('#{title}', '#{url}') RETURNING id, title, url;"
     Bookmark.new(id: r[0]['id'], title: r[0]['title'], url: r[0]['url'])
   end
 
-  def self.delete(title)
+  def self.delete(id:)
     open_db_connection
-    @con.exec "DELETE FROM bookmarks
-    where title = '#{title}'"
+    @con.exec("DELETE FROM bookmarks WHERE id = #{id}")
   end
 
   def self.open_db_connection

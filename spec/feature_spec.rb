@@ -31,14 +31,12 @@ feature 'Delete Bookmark' do
   before :each do
     trunc_test_database
   end
-  scenario 'removes the bookmark' do
-    populate_test_database
-    visit '/bookmarks'
-    expect(page).to have_link('Google', href: 'http://www.google.com')
-    visit '/'
-    click_button 'delete_bookmark'
-    fill_in :title, with: 'Google'
-    click_button 'submit'
-    expect(page).not_to have_link('Google', href: 'http://www.google.com')
+  scenario 'A user can delete a bookmark' do
+    Bookmark.add(url: 'www.makersacademy.com', title: 'Makers')
+    visit('/bookmarks')
+    expect(page).to have_link('Makers', href: 'www.makersacademy.com')
+    first('.bookmark').click_button 'Delete'
+    expect(current_path).to eq '/bookmarks'
+    expect(page).not_to have_link('Makers', href: 'www.makersacademy.com')
   end
 end

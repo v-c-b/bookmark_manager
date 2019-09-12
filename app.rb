@@ -35,6 +35,16 @@ class BookmarkManager < Sinatra::Base
     erb :'/bookmarks/update'
   end
 
+  post '/bookmarks/comment/:id' do
+    @bookmark = Bookmark.find(params[:id])
+    erb :'/bookmarks/add_comment'
+  end
+
+  post '/bookmarks/store_comment/:id' do
+    Comment.add(params[:id], params[:comment])
+    redirect '/bookmarks'
+  end
+
   post '/bookmarks/change/:id' do
     if Bookmark.validate(params[:url]) == false
       @bookmark = Bookmark.find(params[:id])

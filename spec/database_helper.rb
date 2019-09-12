@@ -1,7 +1,7 @@
 # sets up and cleans the test database for testing purposes
 def trunc_test_database
   con = PG.connect dbname: 'bookmark_manager_test'
-  con.exec 'TRUNCATE bookmarks'
+  con.exec 'TRUNCATE bookmarks CASCADE'
 end
 
 def populate_test_database
@@ -16,7 +16,7 @@ end
 
 def drop_test_database
   con = PG.connect dbname: 'bookmark_manager_test'
-  con.exec 'DROP TABLE bookmarks'
+  con.exec 'DROP TABLE bookmarks CASCADE'
   con.exec 'CREATE TABLE bookmarks(id SERIAL PRIMARY KEY,
     url VARCHAR(60), title VARCHAR(60));'
 end

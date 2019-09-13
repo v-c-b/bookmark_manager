@@ -3,6 +3,7 @@ require 'sinatra/base'
 require 'sinatra/flash'
 require './lib/bookmarks.rb'
 require './lib/comment.rb'
+require './lib/tag.rb'
 require './lib/database_connection_setup.rb'
 
 
@@ -24,6 +25,7 @@ class BookmarkManager < Sinatra::Base
     redirect '/bookmarks/add' if params[:submit] == 'add_bookmark'
     redirect '/bookmarks' if params[:submit] == 'view_bookmark'
     redirect '/bookmarks/delete' if params[:submit] == 'delete_bookmark'
+    redirect '/tags/create' if params[:submit] == 'add_tag'
   end
 
   delete '/bookmarks/:id' do
@@ -69,6 +71,20 @@ class BookmarkManager < Sinatra::Base
         Bookmark.add(title: params[:title], url: params[:url])
         redirect '/bookmarks'
     end
+  end
+
+  # post '/bookmarks/tag/:id' do
+  #   @bookmark_id = params[:id]
+  #   erb :'tags/add'
+  # end
+  #
+  post '/tags/store/' do
+    Tag.create(params[:tag])
+    redirect '/bookmarks'
+  end
+
+  get '/tags/create' do
+    erb :'tags/add'
   end
 
   run! if app_file == $PROGRAM_NAME

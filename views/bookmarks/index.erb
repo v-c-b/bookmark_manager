@@ -23,6 +23,10 @@
       <input type='hidden' name='_method' value='POST'/>
       <input type="submit" value="Comment" />
     </form>
+    <form action="/bookmarks/tag/<%= bookmark.id %>" method="post">
+      <input type='hidden' name='_method' value='POST'/>
+      <input type="submit" value="Add tag" />
+    </form>
     <ul>
       <h4> Comments </h4>
       <% Comment.find(bookmark.id).each do |comment|%>

@@ -1,0 +1,10 @@
+<form action='/tags/store/' method = post>
+    <input type='text' name='tag' placeholder="insert tag here"/>
+    <input type='submit' name='Submit'>
+</form>
+<h4>Existing tags</h4>
+<ul>
+  <%Tag.all.each do |tag|%>
+  <%=tag.content%><br>
+  <% end%>
+  </ul>

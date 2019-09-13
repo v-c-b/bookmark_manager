@@ -1,0 +1,10 @@
+<h1> Select tag </h1>
+
+<form action ="/tags/associate_2/<%= @bookmark_id %>" method ="post">
+  <% Tag.all.each do |tag|%>
+  <input type="radio" name="tag" value="<%= tag.content %>" id="<%= tag.content %>"> <%= tag.content %> <br>
+  <% end %>
+  <br>
+  <input type="submit" value="Submit" />
+
+</form>

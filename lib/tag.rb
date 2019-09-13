@@ -20,4 +20,8 @@ attr_reader :id, :content
     r.map { |b| Tag.new(id: b['id'], content: b['content'])}
   end
 
+  def self.associate(bookmark_id, tag_id)
+    r = DatabaseConnection.query("INSERT INTO bookmarks_tags (tag_id, bookmark_id)
+      VALUES (#{tag_id}, #{bookmark_id});")
+  end
 end

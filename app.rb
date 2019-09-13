@@ -73,11 +73,17 @@ class BookmarkManager < Sinatra::Base
     end
   end
 
-  # post '/bookmarks/tag/:id' do
-  #   @bookmark_id = params[:id]
-  #   erb :'tags/add'
-  # end
-  #
+  post '/bookmarks/tag/:id' do
+    @bookmark_id = params[:id]
+    erb :'tags/associate'
+  end
+
+  post '/tags/associate_2/:id' do
+    @bookmark_id = params[:id]
+    Tag.associate(@bookmark_id, params[:tag])
+    redirect '/bookmarks'
+  end
+
   post '/tags/store/' do
     Tag.create(params[:tag])
     redirect '/bookmarks'

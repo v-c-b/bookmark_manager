@@ -7,8 +7,8 @@ feature 'Add comments' do
     populate_test_database
     visit'/bookmarks'
     first('.bookmark').click_button 'Comment'
-    fill_in :comment, with: "Hey I'm testing"
-    click_button 'Submit'
-    expect(page).to have_content "Hey I'm testing"
+    fill_in :comment, with: "Hey I am testing"
+    click_button('Submit')
+    expect(page).to have_content ('Hey I am testing')
   end
 end
